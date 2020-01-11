@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func main() {
 	var message string = "Running Cards Project ..."
@@ -20,8 +23,39 @@ func main() {
 	printCards(cards)
 
 	fmt.Println("\nExtending Built In Types")
-	cardsDeck := getDeck()
+	cardsDeck := getNewDeck()
 	fmt.Println(cardsDeck)
+
+	fmt.Println("\n Selecting Subset From Slice")
+	fmt.Println(cardsDeck[:5])
+
+	fmt.Println("/nDeal Cards")
+	handSize := 5
+	hand, remainingDeck := deal(cardsDeck, handSize)
+	fmt.Println("\nPrinting Hand Cards: ")
+	hand.print()
+	fmt.Println("\nPrinting Remaining Cards: ")
+	remainingDeck.print()
+
+	fmt.Println("\nType Conversion")
+	fmt.Println([]byte("Hi Golang"))
+
+	// Converting slice of string to string
+	cardsDeckStr := cardsDeck.toString("|")
+	fmt.Println(cardsDeckStr)
+	cardsDeckStr = strings.Join(cardsDeck, "|")
+	fmt.Println(cardsDeckStr)
+
+	fmt.Println("\nSaving Deck On Disk")
+	cardsDeck.saveToFile("cards.txt")
+
+	fmt.Println("\nLoading Deck From Disk")
+	deckFromFile := getDeckFromFile("cards.txt")
+	fmt.Println(deckFromFile)
+	// getDeckFromFile("card2.txt")
+
+	fmt.Println("\nShuffle Deck")
+	fmt.Println(deckFromFile.shuffleDeck())
 }
 
 func newCard() string {
